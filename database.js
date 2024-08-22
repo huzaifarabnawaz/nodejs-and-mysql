@@ -1,41 +1,45 @@
-// const mysql = require("mysql2")
-import mysql from 'mysql2'
 
-// const dotenv = require('dotenv')
-import dotenv from 'dotenv'
-import { create } from 'domain'
-dotenv.config()
+import mysql from 'mysql2';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-}).promise()
+}).promise();
 
+export async function getNotes() {
+    const [rows] = await pool.query("SELECT * FROM `users`");
+    return rows;
+}
 
-async function getNotes() {
-    const [row] = await pool.query("SELECT * FROM `users` ")
-    return row
-
+export async function getNote(id) {
+    const [rows] = await pool.query("SELECT * FROM users WHERE usersid = ?", [id]);
+    return rows[0];
 }
 
 
-async function getNote(id) {
-    const [result] = await pool.query(`SELECT * FROM users WHERE usersid=?`, [id])
-    return result[0]
+
+
+export async function createNote(name, email) {
+    const [result] = await pool.query("INSERT INTO users (name, email) VALUES (?, ?)", [name, email]);
+    const id = result.insertId; // `insertId` is the ID of the inserted row
+    return getNote(id);
 }
 
 
-async function createNote(name,email){
-    const result=await pool.query(
-        `INSERT INTO users (name,email) VALUE (?,?)`,[name,email] )
-       const id=result.insertId
-       return getNote(id)
+export async function createselect(id){
+    const [raw] = await pool.query("SELECT * FROM `tasks` WHERE userid=?",[id]);
+    const userid=raw.insertId
+    return createselect(userid)
 }
 
-const result=await createNote('test','test')
-console.log(result)
 
 
 
+
+
+// SELECT * FROM `tasks` WHERE userid=
