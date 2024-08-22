@@ -1,0 +1,4 @@
+SELECT * from tasks LEFT JOIN users ON tasks.userid = users.usersid;
+
+
+INSERT INTO `tasks` (`id`, `tasks`, `description`, `userid`) VALUES()

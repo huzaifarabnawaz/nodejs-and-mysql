@@ -6,10 +6,10 @@ dotenv.config();
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
+    user: process.env.MYSQL_USER,  
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-}).promise();
+}).promise();   
 
 export async function getNotes() {
     const [rows] = await pool.query("SELECT * FROM `users`");
@@ -26,13 +26,9 @@ export async function getNote(id) {
 
 export async function createNote(name, email) {
     const [result] = await pool.query("INSERT INTO users (name, email) VALUES (?, ?)", [name, email]);
-    const id = result.insertId; // `insertId` is the ID of the inserted row
+    const id = result.insertId; // `insertId` is the ID of the inserted row     
     return getNote(id);
 }
-
-
-
-
 
 
 
