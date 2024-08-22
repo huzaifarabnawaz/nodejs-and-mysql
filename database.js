@@ -31,15 +31,9 @@ export async function createNote(name, email) {
 }
 
 
-export async function createselect(id){
-    const [raw] = await pool.query("SELECT * FROM `tasks` WHERE userid=?",[id]);
-    const userid=raw.insertId
-    return createselect(userid)
-}
 
 
 
 
 
 
-// SELECT * FROM `tasks` WHERE userid=

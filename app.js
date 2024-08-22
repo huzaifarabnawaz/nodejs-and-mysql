@@ -22,9 +22,8 @@ app.post("/data", async (req, res) => {
     res.status(201).send(note);
 });
 
-app.use((err, req, res, next) => {
-    res.status(404).send("Not found ");
-});
+
+
 
 app.listen(3500, () => {
     console.log("Port 3500 is running");
