@@ -18,7 +18,7 @@ app.get("/data/:id", async (req, res) => {
 });
 
 
-app.post("/data/:id", async (req, res) => {
+app.post("/data", async (req, res) => {
     const { name, email } = req.body;
     const note = await createNote(name, email);
     res.status(201).send(note);
@@ -27,28 +27,36 @@ app.post("/data/:id", async (req, res) => {
 
 
 
-// app.get("/beta",async(req,res)=>{
-//         const beta=await taskquery();
-//         res.send(beta)
-// })
-
-// app.get("/taskWithUser",async (req, res)=>{
-//     const include = await getTaskWithUser()
-//     return res.status(200).send(include)
-// })
+// left join
 
 
-// app.get("/beta/:id",async(req,res)=>{
-//     const id=req.params.id
-//     const notes=await insertid(id)
-//     res.json(notes)
-// })
+app.get("/beta",async(req,res)=>{
+    const beta=await taskquery();
+    res.send(beta)
+})
 
 
-// app.post("/post",async(req,res)=>{
-// const launchfunction = await insertintovalue(req.body.tasks,req.body.description, req.body.userid)
-// res.send(launchfunction)
-// })
+app.get("/beta/:id",async(req,res)=>{
+    const id=req.params.id
+    const notes=await insertid(id)
+    res.json(notes)
+})
+
+app.post("/post",async(req,res)=>{
+    const launchfunction = await insertintovalue(req.body.tasks,req.body.description, req.body.userid)
+    res.send(launchfunction)
+    })
+
+
+
+app.get("/taskWithUser",async (req, res)=>{
+    const include = await getTaskWithUser()
+    return res.status(200).send(include)
+})
+
+
+
+
 
 
 

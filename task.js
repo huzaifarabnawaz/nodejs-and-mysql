@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 }).promise();
 
 export async function taskquery(){
-    const [rows] = await pool.query("SELECT * FROM `tasks`");
+    const [rows] = await pool.query("SELECT * FROM tasks");
     return rows;
 }
 
